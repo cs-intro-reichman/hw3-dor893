@@ -34,17 +34,29 @@ public class Anagram {
 		String twoString = preProcess(str2);
 
 		boolean anagram = false;
+
+		if(oneString.length() == 0 && twoString.length() == 0) {
+
+			anagram = true;
+		}
+
+		else if (oneString.length() != twoString.length()) {
+
+			anagram = false;
+
+		} else {
 		
-		for(int i = 0; i < oneString.length(); i++ ) {
+		    for(int i = 0; i < oneString.length(); i++ ) {
 
-			for(int t = 0; t < twoString.length(); t++) {
+			    for(int t = 0; t < twoString.length(); t++) {
 
-				if(str1.indexOf(twoString.charAt(t)) != -1) {
+				    if(str1.indexOf(twoString.charAt(t)) != -1) {
 
-					anagram = true;
+					    anagram = true;
 
-				}
-			}
+				    }
+			    }
+		    }
 		}
 
 		return anagram;
