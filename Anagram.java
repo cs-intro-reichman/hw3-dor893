@@ -28,22 +28,85 @@ public class Anagram {
 
 	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
-		// Replace the following statement with your code
-		return false;
+
+		String oneString = preProcess(str1);
+
+		String twoString = preProcess(str2);
+
+		boolean anagram = false;
+		
+		for(int i = 0; i < oneString.length(); i++ ) {
+
+			for(int t = 0; t < twoString.length(); t++) {
+
+				if(str1.indexOf(twoString.charAt(t)) != -1) {
+
+					anagram = true;
+
+				}
+			}
+		}
+
+		return anagram;
 	}
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
 	// to lower-case, and all the other characters are deleted, except for spaces, which are left
 	// as is. For example, the string "What? No way!" becomes "whatnoway"
 	public static String preProcess(String str) {
-		// Replace the following statement with your code
-		return "";
+
+		String newString = "";
+
+		for(int i = 0; i < str.length(); i++) {
+
+			char c = str.charAt(i);
+
+			int ascii = c;
+
+			if(c == ' ' || c == '?' || c == '!') {
+
+				if(i + 1 < str.length()) {
+
+				newString += str.charAt(i + 1); 
+
+			    }
+
+			} else {
+
+				if(ascii >= 65 && ascii <= 90) {
+
+					c = (char) (c + 32);
+				}
+
+				newString += c; 
+
+			}
+		}
+
+		return newString;
 	} 
 	   
 	// Returns a random anagram of the given string. The random anagram consists of the same
 	// characters as the given string, re-arranged in a random order. 
 	public static String randomAnagram(String str) {
-		// Replace the following statement with your code
-		return "";
+		
+		String remainingString = preProcess(str);
+
+		String anagram = "";
+
+		while (remainingString.length() > 0) {
+
+		int randomIndex = (int) (Math.random() * remainingString.length()); 
+
+		char c = remainingString.charAt(randomIndex);
+
+		anagram += c;
+
+		remainingString = remainingString.substring(0, randomIndex) + remainingString.substring(randomIndex + 1);
+	    
+	    }
+
+    return anagram;
+	
 	}
 }
