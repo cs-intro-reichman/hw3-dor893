@@ -28,22 +28,121 @@ public class Anagram {
 
 	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
-		// Replace the following statement with your code
-		return false;
+
+		String oneString = preProcesswithoutspaces(str1);
+
+		String twoString = preProcesswithoutspaces(str2);
+
+		boolean anagram = false;
+
+		if(oneString.length() == 0 && twoString.length() == 0) {
+
+			anagram = true;
+		}
+
+		if (oneString.length() != twoString.length()) {
+
+			anagram = false;
+
+		} else {
+
+			for(int i = 0; i < oneString.length(); i++){
+
+				char charOne = oneString.charAt(i);
+		
+		     while (twoString.length() > 0) {
+
+			    for(int t = 0; t < twoString.length(); t++) {
+
+				    if(twoString.charAt(t) == charOne) {
+
+						twoString = twoString.substring(0, t) + twoString.substring(t + 1); // delete the tested char
+
+					    anagram = true;
+
+				    }
+			    }
+		     }
+		    }
+		}
+
+		return anagram;
 	}
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
 	// to lower-case, and all the other characters are deleted, except for spaces, which are left
 	// as is. For example, the string "What? No way!" becomes "whatnoway"
-	public static String preProcess(String str) {
-		// Replace the following statement with your code
-		return "";
+	public static String preProcess(String str) { 
+
+		String newString = "";
+
+		for(int i = 0; i < str.length(); i++) {
+
+			char c = str.charAt(i);
+
+			int asciiOfchar = c;
+
+				if(asciiOfchar >= 65 && asciiOfchar <= 90) { // upper case
+
+					c = (char) (c + 32);
+
+					newString += c;
+				
+				} else if ((asciiOfchar >= 97 && asciiOfchar <= 122) || asciiOfchar == 32) { //lower case or tab
+
+					newString += c;
+				}
+		}
+	return newString;
+	
+	} 
+
+	public static String preProcesswithoutspaces(String str) { 
+
+		String newString = "";
+
+		for(int i = 0; i < str.length(); i++) {
+
+			char c = str.charAt(i);
+
+			int asciiOfchar = c;
+
+				if(asciiOfchar >= 65 && asciiOfchar <= 90) { // upper case
+
+					c = (char) (c + 32);
+
+					newString += c;
+				
+				} else if (asciiOfchar >= 97 && asciiOfchar <= 122) { //lower case or tab
+
+					newString += c;
+				}
+		}
+	return newString;
+	
 	} 
 	   
 	// Returns a random anagram of the given string. The random anagram consists of the same
 	// characters as the given string, re-arranged in a random order. 
 	public static String randomAnagram(String str) {
-		// Replace the following statement with your code
-		return "";
+		
+		String remainingString = preProcesswithoutspaces(str);
+
+		String anagram = "";
+
+		while (remainingString.length() > 0) {
+
+		int randomIndex = (int) (Math.random() * remainingString.length()); 
+
+		char c = remainingString.charAt(randomIndex);
+
+		anagram += c;
+
+		remainingString = remainingString.substring(0, randomIndex) + remainingString.substring(randomIndex + 1);
+	    
+	    }
+
+    return anagram;
+	
 	}
 }
