@@ -21,6 +21,10 @@ public class Algebra {
    		System.out.println(sqrt(36));
 		System.out.println(sqrt(263169));
    		System.out.println(sqrt(76123));
+		System.out.println("times test : " + times(3, 4));
+		System.out.println("div cheak: " + div(12, 3));
+		System.out.println("div cheak: " + div(-15, 3));
+	
 	}
 
 
@@ -75,27 +79,13 @@ public class Algebra {
 		return x1;
 	}
 
+
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
 
-		if(x1 < 0 && x2 < 0) {
+		int time = 0;
 
-				int i = x2;
-	
-				while (i < 0) {
-	
-					x1--;
-	
-					i++;
-				}
-
-
-
-		// שניהם קטנים מאפס
-		// איקס ראשון גדול מאפס ואיקס שני קטן מאפס
-		// איקס שני גדול מאפס ואיקס ראשון שלילי
-
-
+		int abs = 0;
 
 		if(x1 == 0 || x2 == 0) {
 
@@ -103,21 +93,56 @@ public class Algebra {
 
 		}
 
-		int multiplicationResult = 0;
+		if(x1 == 1 && x2 == 1) {
 
-		for(int i = 0; i < x2; i++) {
-
-			multiplicationResult = plus(multiplicationResult, x1);
-		
+			return 1;
 		}
 
-		return multiplicationResult;
-	}
+		if(x1 > 0 && x2 > 0) {
+
+			for(int j = 0; j < x2; j++) {
+
+				time = plus(time, plus(0, x1));
+			}
+		abs = time;
+		}
+
+		if(x1 < 0 && x2 > 0) {
+
+			for(int j = 0; j < x2; j++) {
+
+				time = plus(time, plus(0, x1));
+
+		    }
+		abs = time;
+		}
+
+		if(x1 > 0 && x2 < 0) {
+
+			for(int j = 0; j < x1; j++) {
+
+				time = plus(time, plus(0, x2));
+	
+			}
+		abs = time;
+		}
+
+		if(x1 < 0 && x2 < 0) {
+
+			for(int j = x2; j < 0; j++){
+
+				time = plus(time, plus(0, x1));
+			}
+		abs = minus(0, time);
+		}
+
+	return abs;
+			
+	} 
+
 
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
-
-		//זוגי אי זוגי על החזקה -  לבנות מודול שבה אני מחסרת ממספר עד שאני מגיעה לשארית קטנה מהמחלק וזו פונקציה מודול שאני משתמשת בה פה לפונקציה הזאת כדי להחליק אם התוצאה חיובית או שלילית וחזקה של 0 זה 1
 		
 		if (x == 1 || n == 0) {
 
@@ -157,18 +182,76 @@ public class Algebra {
 
 		} 
 
+		int counter = 0;
+
 		int divResult = 0;
-		
-		int minusFordiv = x1;
 
-		while (minusFordiv > x2) {
+		if(x1 > 0 && x2 < 0) {
 
-			minusFordiv = minus(minusFordiv, x2);
+			int calc = x1;
 
-			divResult++;
+			int twoX = minus(0, x2);
 
-		}
-		return divResult;
+			while (calc > twoX) {
+
+				calc = minus(calc, minus(0, x2));
+
+				counter++;
+	
+			}
+		divResult = minus(0, counter);
+	    }
+
+		if(x1 < 0 && x2 > 0) { 
+
+			int oneX = minus(0, x1);
+
+			int calc = oneX;
+
+			while (calc >= x2) {
+
+				calc = minus(calc,x2);
+
+				counter++;	
+	
+			}
+		divResult = minus(0, counter);
+	    }
+
+		if(x1 > 0 && x2 > 0) {
+
+			int calc = x1;
+
+			while (calc >= x2) {
+
+				calc = minus(calc, x2);
+
+				counter++;
+	
+			}
+		divResult = counter;
+	    }
+
+		if(x1 < 0 && x2 < 0) { 
+
+			int oneX = minus(0, x1);
+
+			int twoX = minus(0, x2);
+
+			int calc = oneX;
+
+			while (calc >= twoX) {
+
+				calc = minus(calc,twoX);
+
+				counter++;	
+	
+			}
+		divResult = counter;
+	    }
+
+	return divResult;	
+
 	}
 
 	// Returns x1 % x2
@@ -186,8 +269,38 @@ public class Algebra {
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
 		
-		int sprt = pow(x, div(1, 2));
+	int left = 0;
+    
+	int right = x;
 
-		return sprt;
-	}	  	  
+	int result = 0;
+
+    while (left <= right) {
+        
+		int mid = (left + right) / 2;
+        
+		int midSprt = times(mid, mid);
+
+
+        if (midSprt == x) {
+            
+			return mid;
+        }
+
+        else if (midSprt < x) {
+            
+			left = mid + 1;
+
+			result = mid;
+            
+        }
+
+        else {
+            
+			right = mid - 1;
+        }
+    }
+
+    return result;
+}
 }
