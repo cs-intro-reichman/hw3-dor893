@@ -6,9 +6,12 @@ public class Anagram {
 		System.out.println(isAnagram("William Shakespeare","I am a weakish speller")); // true
 		System.out.println(isAnagram("Madam Curie","Radium came")); // true
 		System.out.println(isAnagram("Tom Marvolo Riddle","I am Lord Voldemort")); // true
+		System.out.println(isAnagram("hello", "world!"));
 
 		// Tests the preProcess function.
 		System.out.println(preProcess("What? No way!!!"));
+		System.out.println(preProcesswithoutspaces("world!"));
+		System.out.println(preProcesswithoutspaces("hello"));
 		
 		// Tests the randomAnagram function.
 		System.out.println("silent and " + randomAnagram("silent") + " are anagrams.");
@@ -33,41 +36,45 @@ public class Anagram {
 
 		String twoString = preProcesswithoutspaces(str2);
 
-		boolean anagram = false;
-
-		if(oneString.length() == 0 && twoString.length() == 0) {
-
-			anagram = true;
-		}
-
 		if (oneString.length() != twoString.length()) {
 
-			anagram = false;
-
-		} else {
-
-			for(int i = 0; i < oneString.length(); i++){
-
-				char charOne = oneString.charAt(i);
-		
-		     while (twoString.length() > 0) {
-
-			    for(int t = 0; t < twoString.length(); t++) {
-
-				    if(twoString.charAt(t) == charOne) {
-
-						twoString = twoString.substring(0, t) + twoString.substring(t + 1); // delete the tested char
-
-					    anagram = true;
-
-				    }
-			    }
-		     }
-		    }
+			return false;
 		}
 
-		return anagram;
+		if(oneString.length()  == 0 && twoString.length() == 0) {
+
+			return true;
+		}
+
+		boolean foundChar = false;
+
+		for(int i = 0; i < oneString.length(); i++) {
+
+			char charOne = oneString.charAt(i);
+		
+		    for (int j = 0; j < twoString.length(); j++) {
+
+				if(twoString.charAt(j) == charOne) {
+
+					twoString = twoString.substring(0, j) + twoString.substring(j + 1); // delete the tested char
+
+					foundChar = true;
+
+					break;
+			        
+				} 
+					
+		    }
+
+		    if (!foundChar) {
+
+			    return false;
+		    } 
+	    }
+		
+		return foundChar;
 	}
+	
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
 	// to lower-case, and all the other characters are deleted, except for spaces, which are left
